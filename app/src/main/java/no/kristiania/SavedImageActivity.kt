@@ -20,7 +20,7 @@ class SavedImageActivity : AppCompatActivity() {
 
         val buttonThree:Button = findViewById(R.id.button3)
         buttonThree.setOnClickListener{
-            val i = Intent(this@SavedImageActivity, SavedImageActivity::class.java)
+            val i = Intent(this@SavedImageActivity, SelectImageActivity::class.java)
             startActivity(i)
         }
 

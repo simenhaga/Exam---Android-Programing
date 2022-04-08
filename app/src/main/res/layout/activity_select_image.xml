@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_marginTop="160dp"
+        android:id="@+id/fragmentContainer"
+        />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,30 +48,29 @@
         android:layout_marginRight="20px"
         />
 
-
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/fragmentButton1"
         android:layout_width="170dp"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="50px"
         android:layout_marginTop="200px"
         android:text="Select image"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/fragmentButton2"
         android:layout_width="170dp"
         android:layout_height="70dp"
         android:text="Upload selected area"
         android:layout_marginTop="200px"
         android:layout_marginRight="50px"
         android:layout_alignParentRight="true"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="116dp" />
+        />
+
 
 </RelativeLayout>
+
 
 
 

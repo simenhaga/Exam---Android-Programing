@@ -4,12 +4,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import no.kristiania.databinding.ActivityMainBinding
 
-class SelectImageActivity : AppCompatActivity() {
+class  SelectImageActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_image)
+        binding =  ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        //setContentView(R.layout.activity_select_image)
         title = "ReverseImageSearchApp"
+
+
 
         val buttonThree:Button = findViewById(R.id.button3)
         buttonThree.setOnClickListener {
@@ -28,5 +35,7 @@ class SelectImageActivity : AppCompatActivity() {
             val i = Intent(this@SelectImageActivity, SavedImageActivity::class.java)
             startActivity(i)
         }
+
+
     }
 }

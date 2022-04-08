@@ -10,6 +10,9 @@
         <entry key="app/src/main/res/layout/activity_saved_image.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/activity_select_image.xml" value="0.2115036231884058" />
         <entry key="app/src/main/res/layout/fragment_select_image.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_select_image1.xml" value="0.2115036231884058" />
+        <entry key="app/src/main/res/layout/selectimagefragment1.xml" value="0.2115036231884058" />
+        <entry key="app/src/main/res/layout/selectimagefragment2.xml" value="0.20052083333333334" />
       </map>
     </option>
   </component>
