@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,21 +8,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-    </TextView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="700dp"
+        android:textColor="@android:color/holo_purple"
+        android:text="MainActivity"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
             <Button
                 android:id="@+id/button3"
@@ -33,14 +23,15 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20px"
                 tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="16dp" />
+                tools:layout_editor_absoluteY="16dp"
+                />
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="108dp"
                 android:layout_height="70dp"
                 android:text="Reverse image search"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 tools:layout_editor_absoluteX="151dp"
                 tools:layout_editor_absoluteY="16dp" />
 
@@ -56,7 +47,4 @@
 
         </RelativeLayout>
 
-    </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>

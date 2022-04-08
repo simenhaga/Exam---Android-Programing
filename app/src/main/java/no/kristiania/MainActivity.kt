@@ -14,21 +14,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title = "ReverseImageSearchApp"
 
-        val buttonThree = findViewById<Button>(R.id.button3)
-        val buttonFour = findViewById<Button>(R.id.button4)
-        val buttonFive = findViewById<Button>(R.id.button5)
-        switchFragment()
+        //val buttonThree = findViewById<Button>(R.id.button3)
+        //val buttonFour = findViewById<Button>(R.id.button4)
+        //val buttonFive = findViewById<Button>(R.id.button5)
+
+    val buttonThree:Button = findViewById(R.id.button3)
+    buttonThree.setOnClickListener{
+        val intent = Intent(this@MainActivity, selectImageActivity::class.java)
+        startActivity(intent)
+    }
+
+    val buttonFour:Button = findViewById<Button>(R.id.button4)
+    buttonFour.setOnClickListener{
+        val intent = Intent(this@MainActivity, reverseImageSearchActivity::class.java)
+        startActivity(intent)
+    }
 
 
     }
 
 
-    private fun switchFragment() {
-        val buttonThree = findViewById<Button>(R.id.button3)
-        val fragment = SelectImageFragment()
-        buttonThree.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
-        }
-    }
+
 }
