@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import no.kristiania.databinding.ActivityMainBinding
 
 class  SelectImageActivity : AppCompatActivity() {
@@ -19,23 +20,32 @@ class  SelectImageActivity : AppCompatActivity() {
 
 
         val buttonThree:Button = findViewById(R.id.button3)
+        val buttonFour:Button = findViewById(R.id.button4)
+        val buttonFive:Button = findViewById(R.id.button5)
+
+
         buttonThree.setOnClickListener {
             val i = Intent(this@SelectImageActivity, MainActivity::class.java)
             startActivity(i)
-        }
+       }
 
-        val buttonFour:Button = findViewById(R.id.button4)
         buttonFour.setOnClickListener{
             val i = Intent(this@SelectImageActivity, ReverseImageSearchActivity::class.java)
             startActivity(i)
         }
 
-        val buttonFive:Button = findViewById(R.id.button5)
         buttonFive.setOnClickListener{
             val i = Intent(this@SelectImageActivity, SavedImageActivity::class.java)
             startActivity(i)
         }
 
 
+    }
+
+    private fun replaceFragment(fragment : Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+        fragmentTransaction.commit()
     }
 }

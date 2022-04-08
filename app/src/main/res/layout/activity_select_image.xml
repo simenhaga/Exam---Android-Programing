@@ -5,13 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="570dp"
         android:layout_marginTop="160dp"
-        android:id="@+id/fragmentContainer"
-        />
-
+        android:id="@+id/fragmentContainer" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,17 +47,16 @@
         />
 
     <Button
-        android:id="@+id/fragmentButton1"
+        android:id="@+id/button6"
         android:layout_width="170dp"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="50px"
         android:layout_marginTop="200px"
-        android:text="Select image"
-        />
+        android:text="Select image" />
 
     <Button
-        android:id="@+id/fragmentButton2"
+        android:id="@+id/button7"
         android:layout_width="170dp"
         android:layout_height="70dp"
         android:text="Upload selected area"
