@@ -19,11 +19,9 @@
         android:id="@+id/button3"
         android:layout_width="108dp"
         android:layout_height="70dp"
-        android:text="Select Image"
+        android:text="Select image"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20px"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp"
         />
 
     <Button
@@ -32,19 +30,15 @@
         android:layout_height="70dp"
         android:text="Home"
         android:layout_centerHorizontal="true"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="16dp" />
+        />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="108dp"
         android:layout_height="70dp"
-        android:text="Select image"
+        android:text="Saved Images"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20px"
-        tools:layout_editor_absoluteX="287dp"
-        tools:layout_editor_absoluteY="16dp" />
+        />
 
 </RelativeLayout>
-
-

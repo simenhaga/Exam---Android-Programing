@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Exam">
+        <activity android:name=".ReverseImageSearchActivity"
+                  android:exported="false" />
         <activity
-            android:name=".reverseImageSearchActivity"
+            android:name=".SavedImageActivity"
             android:exported="false" />
         <activity
-            android:name=".selectImageActivity"
+            android:name=".SelectImageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
