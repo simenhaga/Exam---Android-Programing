@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="selectimagefragment1">#174219</color>
     <color name="selectimagefragment2">#D58004</color>
+    <color name="savedimagefragment1">#2196F3</color>
+    <color name="reverseimagesearchfragment1">#E91E63</color>
 </resources>

@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:layout_marginTop="110dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,5 +46,13 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="20px"
         />
+    <Button
+        android:id="@+id/fragmentButton4"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="70dp"
+        android:text="Press here" />
 
 </RelativeLayout>
