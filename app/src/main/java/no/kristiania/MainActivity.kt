@@ -31,19 +31,19 @@ class MainActivity : AppCompatActivity() {
         AndroidNetworking.initialize(getApplicationContext());
 
 
-        val buttonThree:Button = findViewById(R.id.button3)
-        val buttonFour:Button = findViewById(R.id.button4)
-        val buttonFive:Button = findViewById(R.id.button5)
+        val buttonThree: Button = findViewById(R.id.button3)
+        val buttonFour: Button = findViewById(R.id.button4)
+        val buttonFive: Button = findViewById(R.id.button5)
 
-        buttonThree.setOnClickListener{
-            val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
-            startActivity(intent)
-        }
-
-        buttonFour.setOnClickListener{
-            /*val intent = Intent(this@MainActivity, ReverseImageSearchActivity::class.java)
+        buttonThree.setOnClickListener {
+            /*val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
             startActivity(intent)*/
             openGalleryForImage()
+        }
+
+        buttonFour.setOnClickListener {
+            val intent = Intent(this@MainActivity, ReverseImageSearchActivity::class.java)
+            startActivity(intent)
         }
 
         buttonFive.setOnClickListener {
@@ -77,21 +77,33 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    private fun openGalleryForImage() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
-            imageView.setImageURI(data?.data) // handle chosen image
-        }
-    }
-
-
-
-
+//    private fun openGalleryForImage() {
+//        val intent = Intent()
+//        intent.type = "image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        startForResult.launch(Intent.createChooser(intent, "Select Picture"))
+//    }
+private fun openGalleryForImage() {
+    val intent = Intent(Intent.ACTION_PICK)
+    intent.type = "image/*"
+    intent.action = Intent.ACTION_GET_CONTENT
+    startActivityForResult(intent, REQUEST_CODE)
 }
+
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
+                imageView.setImageURI(data?.data) // handle chosen image
+            }
+
+        }
+
+    /*val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                var imageUri = result.data?.data.toString()
+            }
+        }*/
+        }
+
+
