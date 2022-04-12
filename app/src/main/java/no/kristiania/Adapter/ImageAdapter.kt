@@ -1,3 +1,4 @@
+/*
 package no.kristiania.Adapter
 
 import android.content.Context
@@ -34,4 +35,4 @@ class ImageAdapter(val context: Context, private val images: ArrayList<ImageApi>
 
         val image = itemView.apiImage!!
     }
-}
+}*/
