@@ -2,11 +2,13 @@ package no.kristiania
 
 import android.app.Activity
 import android.content.Intent
-    import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
@@ -14,7 +16,13 @@ import com.androidnetworking.error.ANError
 import org.json.JSONArray
 
 import com.androidnetworking.interfaces.JSONArrayRequestListener
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import org.json.JSONObject
+import okhttp3.OkHttpClient
+import com.jacksonandroidnetworking.JacksonParserFactory
+import java.net.HttpURLConnection
+import java.net.URL
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,12 +32,20 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         title = "ReverseImageSearchApp"
-        AndroidNetworking.initialize(getApplicationContext());
+        // AndroidNetworking.initialize(getApplicationContext());
 
+        /*val okHttpClient = OkHttpClient().newBuilder()
+            .addNetworkInterceptor(StethoInterceptor())
+            .build()
+        AndroidNetworking.initialize(applicationContext, okHttpClient)
+        AndroidNetworking.setParserFactory(JacksonParserFactory())*/
+
+        getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=https://svanemerket.no/content/uploads/2021/09/GettyImages-1082411378-1-scaled.jpg")
 
         val buttonThree:Button = findViewById(R.id.button3)
         val buttonFour:Button = findViewById(R.id.button4)
@@ -51,29 +67,32 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        AndroidNetworking.get("http://localhost:127.0.0.1/api/v1/imagesearch/bing/{image}")
-            .addPathParameter("image", "https://svanemerket.no/content/uploads/2021/09/GettyImages-1082411378-1-scaled.jpg")
-            .setPriority(Priority.HIGH)
-            .build()
-            .getAsJSONArray(object : JSONArrayRequestListener {
-                override fun onResponse(response: JSONArray) {
-                    // do anything with response
-                    // val json: JSONArray = JSONArray(this)
 
-                    Log.d(Globals.TAG, "Object: " + response.get(1))
 
-                    /*for (index in 0 until json.length()){
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun getReversedImage(url: String) {
+        val url = URL(url)
+
+        thread {
+            with(url.openConnection() as HttpURLConnection) {
+                requestMethod = "GET"
+
+                inputStream.bufferedReader().lines().forEach {
+                    //Log.d(Globals.TAG, it)
+
+                    val json: JSONArray = JSONArray(it)
+
+                    for (index in 0 until json.length()) {
+                        val thumbnailLink: String = (json.get(index) as JSONObject).get("thumbnail_link").toString()
                         val imageLink: String = (json.get(index) as JSONObject).get("image_link").toString()
 
-                        Log.d(Globals.TAG, "Image Link: " + imageLink)
-                    }*/
+                        Log.i(Globals.TAG, "Image Link: " + imageLink + "\n")
+                    }
                 }
-
-                override fun onError(error: ANError) {
-                    // handle error
-                }
-            })
-
+            }
+        }
     }
 
 
