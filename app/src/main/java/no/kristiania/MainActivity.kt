@@ -25,6 +25,7 @@ import org.json.JSONObject
 import okhttp3.OkHttpClient
 import com.jacksonandroidnetworking.JacksonParserFactory
 import java.net.HttpURLConnection
+import java.net.URI
 import java.net.URL
 import kotlin.concurrent.thread
 
@@ -72,7 +73,6 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "GET"
 
                 inputStream.bufferedReader().lines().forEach {
                     //Log.d(Globals.TAG, it)
@@ -100,13 +100,20 @@ class MainActivity : AppCompatActivity() {
         startForResult.launch(Intent.createChooser(intent, "Select Picture"))
     }
 
+        @RequiresApi(Build.VERSION_CODES.N)
         val startForResult =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            var imageUri = result.data?.data.toString()
+            val imageUri = result.data?.data
+            Log.d(Globals.TAG, "imgUri: " + imageUri)
+            //val uri = Uri.parse(imageUri.toString())
+            val filePath = uriPathHelper.getPath(this, imageUri!!)
+            getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=${filePath}")
+            Log.d(Globals.TAG, "FilePath: " + filePath)
         }
     }
-    }
+}
+
 /*    private fun openGalleryForImage() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
