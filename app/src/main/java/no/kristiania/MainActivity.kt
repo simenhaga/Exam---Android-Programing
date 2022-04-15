@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity() {
             /*val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
             startActivity(intent)*/
             //openGalleryForImage()
-            //openGalleryForImage()
             requestStoragePermission()
         }
 
