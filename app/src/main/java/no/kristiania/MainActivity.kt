@@ -6,26 +6,18 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
     import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
 
 import org.json.JSONArray
 
-import com.androidnetworking.interfaces.JSONArrayRequestListener
 //import com.facebook.stetho.okhttp3.StethoInterceptor
 import org.json.JSONObject
-import okhttp3.OkHttpClient
-import com.jacksonandroidnetworking.JacksonParserFactory
 import java.net.HttpURLConnection
-import java.net.URI
 import java.net.URL
 import kotlin.concurrent.thread
 
@@ -73,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             with(url.openConnection() as HttpURLConnection) {
+                requestMethod = "GET"
 
                 inputStream.bufferedReader().lines().forEach {
                     //Log.d(Globals.TAG, it)
@@ -91,11 +84,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
         private fun openGalleryForImage() {
         val intent = Intent()
-        intent.type = "image/*"
+        intent.type = "*/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startForResult.launch(Intent.createChooser(intent, "Select Picture"))
     }
@@ -104,34 +95,12 @@ class MainActivity : AppCompatActivity() {
         val startForResult =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val imageUri = result.data?.data
-            Log.d(Globals.TAG, "imgUri: " + imageUri)
-            //val uri = Uri.parse(imageUri.toString())
-            val filePath = uriPathHelper.getPath(this, imageUri!!)
+            val imageUri = result.data?.data.toString()
+            Log.d(Globals.TAG, "imgUri: $imageUri")
+            val uri = Uri.parse(imageUri)
+            val filePath = uriPathHelper.getPath(this, uri)
             getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=${filePath}")
-            Log.d(Globals.TAG, "FilePath: " + filePath)
+            Log.d(Globals.TAG, "FilePath: $filePath")
         }
     }
 }
-
-/*    private fun openGalleryForImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, 3)
-    }
- */
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        //registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE /*!= null*/) {
-                val test: String = imageView.setImageURI(data?.data).toString()
-                //Uri selectedImage = data?.data()
-                //ImageView imageView = findViewById(R.layout.activity_main)
-                //imageView.setImageURI(data?.data) // handle chosen image
-                //var imageUri = result.data?.data.toString()
-                Log.d(Globals.TAG, "imgUri: " + test)
-            }
-
-        }*/
