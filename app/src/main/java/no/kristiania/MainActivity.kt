@@ -37,23 +37,14 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import com.jacksonandroidnetworking.JacksonParserFactory
 import com.androidnetworking.interfaces.JSONObjectRequestListener
-
-
-
-
-
-
-
-
-
+import com.androidnetworking.interfaces.UploadProgressListener
+import com.androidnetworking.interfaces.OkHttpResponseListener
 
 
 class MainActivity : AppCompatActivity() {
     val REQUEST_CODE = 100
     private lateinit var imageView: ImageView
     val uriPathHelper = URIPathHelper
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -76,10 +67,11 @@ class MainActivity : AppCompatActivity() {
         val buttonFive: Button = findViewById(R.id.button5)
 
         buttonThree.setOnClickListener {
-            /*val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
+            startActivity(intent)
             //openGalleryForImage()
-            requestStoragePermission()
+            //openGalleryForImage()
+            //requestStoragePermission()
         }
 
         buttonFour.setOnClickListener {
@@ -91,8 +83,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, SavedImageActivity::class.java)
             startActivity(intent)
         }
-
-
 
     }
 
@@ -128,6 +118,30 @@ class MainActivity : AppCompatActivity() {
             .setTag("test")
             .setPriority(Priority.MEDIUM)
             .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
+                    // do anything with response
+                    Log.d(Globals.TAG, "Response: $response")
+
+                }
+
+                override fun onError(error: ANError) {
+                    // handle error
+                }
+            })
+    }
+
+    private fun uploadFileToServer(file: File) {
+        AndroidNetworking.upload("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
+            .addMultipartFile("image", file)
+            .addMultipartParameter("key", "value")
+            .addHeaders("Content-Type", "image/png")
+            .setTag("uploadTest")
+            .setPriority(Priority.HIGH)
+            .build()
+            .setUploadProgressListener { bytesUploaded, totalBytes ->
+                // do anything with progress
+            }
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject) {
                     // do anything with response
@@ -171,6 +185,7 @@ class MainActivity : AppCompatActivity() {
                     URIPathHelper.getPath(this, it)?.let { path ->
                         val file = File(path)
                         postFileToServer(file)
+                        //uploadToServer(file)
                         Log.d(Globals.TAG, "file: $file")
                     }
                 }
@@ -211,7 +226,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private fun requestStoragePermission() {
+     private fun requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
