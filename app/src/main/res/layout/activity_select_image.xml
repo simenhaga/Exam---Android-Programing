@@ -6,10 +6,16 @@
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="570dp"
-        android:layout_marginTop="160dp"
-        android:id="@+id/fragmentContainer" />
+        android:layout_marginTop="160dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="165dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"

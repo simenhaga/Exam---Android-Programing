@@ -41,27 +41,10 @@ import com.androidnetworking.interfaces.UploadProgressListener
 import com.androidnetworking.interfaces.OkHttpResponseListener
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class MainActivity : AppCompatActivity() {
     val REQUEST_CODE = 100
     private lateinit var imageView: ImageView
     val uriPathHelper = URIPathHelper
-
-
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -84,11 +67,11 @@ class MainActivity : AppCompatActivity() {
         val buttonFive: Button = findViewById(R.id.button5)
 
         buttonThree.setOnClickListener {
-            /*val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
+            startActivity(intent)
             //openGalleryForImage()
             //openGalleryForImage()
-            requestStoragePermission()
+            //requestStoragePermission()
         }
 
         buttonFour.setOnClickListener {
@@ -100,8 +83,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, SavedImageActivity::class.java)
             startActivity(intent)
         }
-
-
 
     }
 
@@ -142,6 +123,29 @@ class MainActivity : AppCompatActivity() {
                     // do anything with response
                     Log.d(Globals.TAG, "Response: $response")
 
+                }
+
+                override fun onError(error: ANError) {
+                    // handle error
+                }
+            })
+    }
+
+    private fun uploadFileToServer(file: File) {
+        AndroidNetworking.upload("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
+            .addMultipartFile("image", file)
+            .addMultipartParameter("key", "value")
+            .addHeaders("Content-Type", "image/png")
+            .setTag("uploadTest")
+            .setPriority(Priority.HIGH)
+            .build()
+            .setUploadProgressListener { bytesUploaded, totalBytes ->
+                // do anything with progress
+            }
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
+                    // do anything with response
+                    Log.d(Globals.TAG, "Response: $response")
                 }
 
                 override fun onError(error: ANError) {
@@ -222,7 +226,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private fun requestStoragePermission() {
+     private fun requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
