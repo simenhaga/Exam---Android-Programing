@@ -79,7 +79,8 @@ class MainActivity : AppCompatActivity() {
             /*val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
             startActivity(intent)*/
             //openGalleryForImage()
-            openGalleryForImage()
+            //openGalleryForImage()
+            requestStoragePermission()
         }
 
         buttonFour.setOnClickListener {
@@ -145,6 +146,7 @@ class MainActivity : AppCompatActivity() {
         intent.type = "*/*"
         intent.action = Intent.ACTION_GET_CONTENT
         //startForResult.launch(Intent.createChooser(intent, "Select Picture"))
+        requestStoragePermission()
         openGalleryLauncher.launch(Intent.createChooser(intent, "Select Picture"))
     }
 
