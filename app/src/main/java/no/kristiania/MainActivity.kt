@@ -37,6 +37,14 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import com.jacksonandroidnetworking.JacksonParserFactory
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.androidnetworking.interfaces.UploadProgressListener
+import com.androidnetworking.interfaces.OkHttpResponseListener
+
+
+
+
+
+
 
 
 
@@ -133,6 +141,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(response: JSONObject) {
                     // do anything with response
                     Log.d(Globals.TAG, "Response: $response")
+
                 }
 
                 override fun onError(error: ANError) {
@@ -172,6 +181,7 @@ class MainActivity : AppCompatActivity() {
                     URIPathHelper.getPath(this, it)?.let { path ->
                         val file = File(path)
                         postFileToServer(file)
+                        //uploadToServer(file)
                         Log.d(Globals.TAG, "file: $file")
                     }
                 }
