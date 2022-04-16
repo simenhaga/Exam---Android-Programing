@@ -1,6 +1,7 @@
 package no.kristiania
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.icu.number.NumberFormatter.with
@@ -42,6 +43,8 @@ class  SelectImageActivity : AppCompatActivity() {
     lateinit var binding: ActivitySelectImageBinding
     lateinit var imageView: ImageView
     private val pickImage = 100
+    private val GALLERY_REQUEST_CODE = 1234
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -168,6 +171,8 @@ class  SelectImageActivity : AppCompatActivity() {
                 val imageUri: Uri? = result.data?.data
                 imageView.setImageURI(imageUri)
                 imageUri?.let {
+                    launchImageCrop(imageUri)
+                    setImage(imageUri)
                     URIPathHelper.getPath(this, it)?.let { path ->
                         val file = File(path)
                         postFileToServer(file)
@@ -177,6 +182,49 @@ class  SelectImageActivity : AppCompatActivity() {
                 }
             }
         }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+
+            GALLERY_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.data?.let { uri ->
+                        launchImageCrop(uri)
+                    }
+                }
+                else{
+                    Log.e(Globals.TAG, "Image selection error: Couldn't select that image from memory." )
+                }
+            }
+
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                val result = CropImage.getActivityResult(data)
+                if (resultCode == Activity.RESULT_OK) {
+                    setImage(result.uri)
+                }
+                else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Log.e(Globals.TAG, "Crop error: ${result.getError()}" )
+                }
+            }
+        }
+    }
+
+    private fun launchImageCrop(imageUri: Uri){
+        CropImage.activity(imageUri)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            //.setAspectRatio(1920, 1080)
+            .setCropShape(CropImageView.CropShape.RECTANGLE) // default is rectangle
+            .start(this)
+    }
+
+    private fun setImage(uri: Uri){
+        Glide.with(this)
+            .load(uri)
+            .into(imageView)
+    }
+
 
     //================ PERMISSION HANDLING ===================
 
