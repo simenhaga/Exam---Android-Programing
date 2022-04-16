@@ -3,6 +3,8 @@ package no.kristiania
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +12,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -24,8 +25,8 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jacksonandroidnetworking.JacksonParserFactory
+import com.squareup.picasso.Picasso
 import no.kristiania.databinding.ActivitySelectImageBinding
-import no.kristiania.MainActivity
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import org.json.JSONObject
@@ -182,7 +183,6 @@ class  SelectImageActivity : AppCompatActivity() {
                 val permissionName = it.key
                 val isGranted = it.value
                 imageView = findViewById(R.id.imageView)
-
                 if (isGranted) {
                     Toast.makeText(
                         this@SelectImageActivity,
