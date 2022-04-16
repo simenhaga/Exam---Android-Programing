@@ -1,8 +1,11 @@
 package no.kristiania
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +13,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -22,10 +24,13 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.bumptech.glide.Glide
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jacksonandroidnetworking.JacksonParserFactory
+import com.squareup.picasso.Picasso
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import no.kristiania.databinding.ActivitySelectImageBinding
-import no.kristiania.MainActivity
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import org.json.JSONObject
@@ -38,6 +43,8 @@ class  SelectImageActivity : AppCompatActivity() {
     lateinit var binding: ActivitySelectImageBinding
     lateinit var imageView: ImageView
     private val pickImage = 100
+    private val GALLERY_REQUEST_CODE = 1234
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -164,6 +171,8 @@ class  SelectImageActivity : AppCompatActivity() {
                 val imageUri: Uri? = result.data?.data
                 imageView.setImageURI(imageUri)
                 imageUri?.let {
+                    launchImageCrop(imageUri)
+                    setImage(imageUri)
                     URIPathHelper.getPath(this, it)?.let { path ->
                         val file = File(path)
                         postFileToServer(file)
@@ -174,6 +183,49 @@ class  SelectImageActivity : AppCompatActivity() {
             }
         }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+
+            GALLERY_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.data?.let { uri ->
+                        launchImageCrop(uri)
+                    }
+                }
+                else{
+                    Log.e(Globals.TAG, "Image selection error: Couldn't select that image from memory." )
+                }
+            }
+
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                val result = CropImage.getActivityResult(data)
+                if (resultCode == Activity.RESULT_OK) {
+                    setImage(result.uri)
+                }
+                else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Log.e(Globals.TAG, "Crop error: ${result.getError()}" )
+                }
+            }
+        }
+    }
+
+    private fun launchImageCrop(imageUri: Uri){
+        CropImage.activity(imageUri)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            //.setAspectRatio(1920, 1080)
+            .setCropShape(CropImageView.CropShape.RECTANGLE) // default is rectangle
+            .start(this)
+    }
+
+    private fun setImage(uri: Uri){
+        Glide.with(this)
+            .load(uri)
+            .into(imageView)
+    }
+
+
     //================ PERMISSION HANDLING ===================
 
     val requestPermissionAndOpenGallery: ActivityResultLauncher<Array<String>> =
@@ -182,7 +234,6 @@ class  SelectImageActivity : AppCompatActivity() {
                 val permissionName = it.key
                 val isGranted = it.value
                 imageView = findViewById(R.id.imageView)
-
                 if (isGranted) {
                     Toast.makeText(
                         this@SelectImageActivity,
