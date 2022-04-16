@@ -23,9 +23,12 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.bumptech.glide.Glide
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jacksonandroidnetworking.JacksonParserFactory
 import com.squareup.picasso.Picasso
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import no.kristiania.databinding.ActivitySelectImageBinding
 import okhttp3.OkHttpClient
 import org.json.JSONArray

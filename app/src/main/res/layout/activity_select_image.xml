@@ -15,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_marginTop="165dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         />
 
     <TextView
