@@ -116,7 +116,7 @@ class  SelectImageActivity : AppCompatActivity() {
 
     private fun postFileToServer(file: File){
         AndroidNetworking.post("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
-            .addFileBody(file) // posting any type of file
+            .addFileBody(file.absoluteFile) // posting any type of file
             .setTag("test")
             .setPriority(Priority.MEDIUM)
             .build()
