@@ -61,8 +61,6 @@ class  SelectImageActivity : AppCompatActivity() {
         AndroidNetworking.setParserFactory(JacksonParserFactory())
 
 
-        getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=https://svanemerket.no/content/uploads/2021/09/GettyImages-1082411378-1-scaled.jpg")
-
         binding.fragmentbutton1.setOnClickListener{
             //replaceFragment(SelectImageFragment1())
             //MainActivity().requestPermissionAndOpenGallery
@@ -115,24 +113,6 @@ class  SelectImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun postFileToServer(file: File){
-        AndroidNetworking.post("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
-            .addFileBody(file.absoluteFile) // posting any type of file
-            .setTag("test")
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    // do anything with response
-                    Log.d(Globals.TAG, "Response: $response")
-
-                }
-
-                override fun onError(error: ANError) {
-                    // handle error
-                }
-            })
-    }
 
     private fun uploadFileToServer(file: File) {
         AndroidNetworking.upload("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
@@ -153,7 +133,7 @@ class  SelectImageActivity : AppCompatActivity() {
                 }
 
                 override fun onError(anError: ANError?) {
-                    TODO("Not yet implemented")
+                    print(anError.toString())
                 }
             })
     }
