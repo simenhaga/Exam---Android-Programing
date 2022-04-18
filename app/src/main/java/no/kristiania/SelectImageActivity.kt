@@ -24,6 +24,7 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.androidnetworking.interfaces.StringRequestListener
 import com.bumptech.glide.Glide
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jacksonandroidnetworking.JacksonParserFactory
@@ -59,8 +60,6 @@ class  SelectImageActivity : AppCompatActivity() {
         AndroidNetworking.initialize(applicationContext, okHttpClient)
         AndroidNetworking.setParserFactory(JacksonParserFactory())
 
-
-        getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=https://svanemerket.no/content/uploads/2021/09/GettyImages-1082411378-1-scaled.jpg")
 
         binding.fragmentbutton1.setOnClickListener{
             //replaceFragment(SelectImageFragment1())
@@ -114,24 +113,6 @@ class  SelectImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun postFileToServer(file: File){
-        AndroidNetworking.post("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
-            .addFileBody(file.absoluteFile) // posting any type of file
-            .setTag("test")
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    // do anything with response
-                    Log.d(Globals.TAG, "Response: $response")
-
-                }
-
-                override fun onError(error: ANError) {
-                    // handle error
-                }
-            })
-    }
 
     private fun uploadFileToServer(file: File) {
         AndroidNetworking.upload("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
@@ -144,14 +125,15 @@ class  SelectImageActivity : AppCompatActivity() {
             .setUploadProgressListener { bytesUploaded, totalBytes ->
                 // do anything with progress
             }
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    // do anything with response
+            .getAsString(object : StringRequestListener {
+                @RequiresApi(Build.VERSION_CODES.N)
+                override fun onResponse(response: String) {
                     Log.d(Globals.TAG, "Response: $response")
+                    getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$response")
                 }
 
-                override fun onError(error: ANError) {
-                    // handle error
+                override fun onError(anError: ANError?) {
+                    print(anError.toString())
                 }
             })
     }
@@ -175,8 +157,8 @@ class  SelectImageActivity : AppCompatActivity() {
                     setImage(imageUri)
                     URIPathHelper.getPath(this, it)?.let { path ->
                         val file = File(path)
-                        postFileToServer(file)
-                        //uploadFileToServer(file)
+                        //postFileToServer(file)
+                        uploadFileToServer(file)
                         Log.d(Globals.TAG, "file: $file")
                     }
                 }
