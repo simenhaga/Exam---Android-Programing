@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import no.kristiania.databinding.ActivityReverseImageSearchBinding
 
 class ReverseImageSearchActivity : AppCompatActivity() {
     lateinit var binding: ActivityReverseImageSearchBinding
+
+    private lateinit var imageRV: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,8 +21,17 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
 
+        // Init views
+        imageRV = findViewById(R.id.apiRecyclerView)
+
+        imageRV.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+
         binding.fragmentButton4.setOnClickListener{
-            replaceFragment(ReverseImageSearchFragment())
+            Globals.uploadUrl?.let {
+                apiController.reversedImageSearch(it) { imageList ->
+                    imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
+                }
+            }
         }
 
         binding.button4.setOnClickListener{

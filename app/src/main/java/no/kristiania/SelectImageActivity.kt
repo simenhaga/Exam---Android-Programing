@@ -34,10 +34,9 @@ import java.io.File
 class  SelectImageActivity : AppCompatActivity() {
     lateinit var binding: ActivitySelectImageBinding
     lateinit var imageView: ImageView
-    private val pickImage = 100
-    private val GALLERY_REQUEST_CODE = 1234
+    private var selectedImage: File? = null
 
-    private lateinit var imageRV:RecyclerView
+    private val GALLERY_REQUEST_CODE = 1234
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,11 +44,6 @@ class  SelectImageActivity : AppCompatActivity() {
         binding =  ActivitySelectImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
-
-        // Init views
-        imageRV = findViewById(R.id.apiRecyclerView)
-
-        imageRV.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
 
         val okHttpClient = OkHttpClient().newBuilder()
             .addNetworkInterceptor(StethoInterceptor())
@@ -64,7 +58,7 @@ class  SelectImageActivity : AppCompatActivity() {
 
         binding.fragmentButton2.setOnClickListener{
             selectedImage?.let {
-                apiController.uploadFileToServer(it)
+                apiController.uploadFileToServer(it) { result -> Globals.uploadUrl = result }
             }
             replaceFragment(SelectImageFragment2())
         }
@@ -85,7 +79,6 @@ class  SelectImageActivity : AppCompatActivity() {
         }
     }
 
-    private var selectedImage: File? = null
 
     private val openGalleryLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

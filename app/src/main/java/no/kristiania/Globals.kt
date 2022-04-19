@@ -14,6 +14,7 @@ import kotlin.random.Random
 
 object Globals {
     val TAG = "Exam"
+    var uploadUrl: String? = null
 }
 
 fun Random.generateRandomString(intRange: IntRange): String {

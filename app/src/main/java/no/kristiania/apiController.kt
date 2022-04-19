@@ -18,7 +18,7 @@ object apiController {
 
 
 
-    fun uploadFileToServer(file: File) {
+    fun uploadFileToServer(file: File, callback: (String) -> Unit) {
         Log.d("ApiController", "Uploading $file to server")
         AndroidNetworking.upload("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
             .addMultipartFile("image", file)
@@ -34,6 +34,7 @@ object apiController {
                 @RequiresApi(Build.VERSION_CODES.N)
                 override fun onResponse(response: String) {
                     Log.d("ApiController", "Uploaded image URL: $response")
+                    callback(response)
                 }
 
                 override fun onError(anError: ANError?) {
