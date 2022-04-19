@@ -148,9 +148,8 @@ class  SelectImageActivity : AppCompatActivity() {
                         val image: String =
                             (result.get(i) as JSONObject).get("image_link").toString()
 
-                        val list = image.get(i)
                         imageList.add(
-                            ImageApi(list.toString())
+                            ImageApi(image)
                         )
                         Log.i(Globals.TAG, "Image Link: " + image + "\n")
                     }

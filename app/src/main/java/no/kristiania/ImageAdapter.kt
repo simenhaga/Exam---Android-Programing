@@ -1,6 +1,7 @@
 package no.kristiania
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.image_rv_layout.view.*
 
-class ImageAdapter(val context: Context?, private val apiImages: ArrayList<ImageApi>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ImageAdapter(val context: Context?, private val imageList: ArrayList<ImageApi>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.image_rv_layout, parent, false)
 
@@ -18,12 +19,14 @@ class ImageAdapter(val context: Context?, private val apiImages: ArrayList<Image
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
     // Binding views here
-        Picasso.get().load(apiImages[position].response).into(holder.itemView.apiImage)
+        Picasso.get()
+            .load(imageList[position].imageLink)
+            .into(holder.itemView.apiImage)
 
     }
 
     override fun getItemCount(): Int {
-        return apiImages.size
+        return imageList.size
     }
 
     class ViewHolder(v:View?) : RecyclerView.ViewHolder(v!!), View.OnClickListener{
