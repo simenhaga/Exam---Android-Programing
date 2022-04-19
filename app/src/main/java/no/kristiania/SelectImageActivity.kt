@@ -188,15 +188,6 @@ class  SelectImageActivity : AppCompatActivity() {
             })
     }
 
-    private fun openGalleryForImage() {
-        val intent = Intent()
-        intent.type = "*/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        //startForResult.launch(Intent.createChooser(intent, "Select Picture"))
-        requestStoragePermission()
-        openGalleryLauncher.launch(Intent.createChooser(intent, "Select Picture"))
-    }
-
     private val openGalleryLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
