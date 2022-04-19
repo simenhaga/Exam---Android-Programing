@@ -68,7 +68,9 @@ class  SelectImageActivity : AppCompatActivity() {
         }
 
         binding.fragmentButton2.setOnClickListener{
-            replaceFragment(SelectImageFragment2())
+            //replaceFragment(SelectImageFragment2())
+            val i = Intent(this@SelectImageActivity, ReverseImageSearchActivity::class.java)
+            startActivity(i)
         }
 
         binding.button3.setOnClickListener{
