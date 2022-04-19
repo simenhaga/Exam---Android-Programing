@@ -47,11 +47,7 @@
                 android:layout_marginRight="20px"
                 />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/apiRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="570dp"
-        android:layout_alignParentBottom="true"/>
+
 
 </RelativeLayout>
 

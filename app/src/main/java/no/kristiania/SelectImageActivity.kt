@@ -20,6 +20,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
@@ -27,11 +30,13 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.StringRequestListener
 import com.bumptech.glide.Glide
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jacksonandroidnetworking.JacksonParserFactory
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import no.kristiania.databinding.ActivitySelectImageBinding
+import no.kristiania.databinding.ImageRvLayoutBinding
 import okhttp3.OkHttpClient
 import org.json.JSONArray
 import org.json.JSONObject
@@ -46,6 +51,11 @@ class  SelectImageActivity : AppCompatActivity() {
     private val pickImage = 100
     private val GALLERY_REQUEST_CODE = 1234
 
+    val imageList = ArrayList<ImageApi>()
+    private lateinit var imageRV:RecyclerView
+    private lateinit var fragmentButton1:FloatingActionButton // ????
+
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +63,14 @@ class  SelectImageActivity : AppCompatActivity() {
         binding =  ActivitySelectImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
+
+        //RVReversedImageSearch("https://gtl-bucket.s3.amazonaws.com/dc603e718d0c4eaf8216bb5b685195d3.jpg")
+
+        // Init views
+        imageRV = findViewById(R.id.apiRecyclerView)
+        //fragmentButton1 = findViewById(R.id.fragmentbutton1)
+
+        imageRV.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
 
         val okHttpClient = OkHttpClient().newBuilder()
             .addNetworkInterceptor(StethoInterceptor())
@@ -115,6 +133,37 @@ class  SelectImageActivity : AppCompatActivity() {
         }
     }
 
+    private fun RVReversedImageSearch(url: String){
+        val url = URL(url)
+        imageList.clear()
+
+        AndroidNetworking.initialize(this)
+
+        AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsString(object : StringRequestListener{
+                override fun onResponse(response: String?) {
+                    val result = JSONObject(response)
+                    val image = result.getJSONArray("image_link")
+
+                    for (i in 0 until image.length()){
+                        val list = image.get(i)
+                        imageList.add(
+                            ImageApi(list.toString())
+                        )
+                    }
+
+                    imageRV.adapter = ImageAdapter(this@SelectImageActivity, imageList)
+                }
+
+                override fun onError(anError: ANError?) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+    }
+
 
     private fun uploadFileToServer(file: File) {
         AndroidNetworking.upload("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
@@ -131,7 +180,8 @@ class  SelectImageActivity : AppCompatActivity() {
                 @RequiresApi(Build.VERSION_CODES.N)
                 override fun onResponse(response: String) {
                     Log.d(Globals.TAG, "Response: $response")
-                    getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$response")
+                    //getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$response")
+                    RVReversedImageSearch(response)
                 }
 
                 override fun onError(anError: ANError?) {
