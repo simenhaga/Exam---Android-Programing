@@ -152,16 +152,12 @@ class  SelectImageActivity : AppCompatActivity() {
                         imageList.add(
                             ImageApi(list.toString())
                         )
-
                         Log.i(Globals.TAG, "Image Link: " + image + "\n")
-
                     }
-
                     imageRV.adapter = ImageAdapter(this@SelectImageActivity, imageList)
                 }
-
                 override fun onError(anError: ANError?) {
-                    TODO("Not yet implemented")
+                    print(anError.toString())
                 }
 
             })
