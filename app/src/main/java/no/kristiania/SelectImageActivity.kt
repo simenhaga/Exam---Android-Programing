@@ -4,8 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.icu.number.NumberFormatter.with
-import android.icu.number.NumberRangeFormatter.with
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -24,26 +22,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
 import com.bumptech.glide.Glide
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jacksonandroidnetworking.JacksonParserFactory
-import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import no.kristiania.databinding.ActivitySelectImageBinding
-import no.kristiania.databinding.ImageRvLayoutBinding
 import okhttp3.OkHttpClient
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
-import kotlin.concurrent.thread
 
 class  SelectImageActivity : AppCompatActivity() {
     lateinit var binding: ActivitySelectImageBinding
