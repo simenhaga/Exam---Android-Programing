@@ -51,11 +51,7 @@ class  SelectImageActivity : AppCompatActivity() {
     private val pickImage = 100
     private val GALLERY_REQUEST_CODE = 1234
 
-    val imageList = ArrayList<ImageApi>()
     private lateinit var imageRV:RecyclerView
-    private lateinit var fragmentButton1:FloatingActionButton // ????
-
-
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,11 +60,8 @@ class  SelectImageActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
 
-        //RVReversedImageSearch("https://gtl-bucket.s3.amazonaws.com/dc603e718d0c4eaf8216bb5b685195d3.jpg")
-
         // Init views
         imageRV = findViewById(R.id.apiRecyclerView)
-        //fragmentButton1 = findViewById(R.id.fragmentbutton1)
 
         imageRV.layoutManager = StaggeredGridLayoutManager(2,LinearLayoutManager.VERTICAL)
 
@@ -80,8 +73,6 @@ class  SelectImageActivity : AppCompatActivity() {
 
 
         binding.fragmentbutton1.setOnClickListener{
-            //replaceFragment(SelectImageFragment1())
-            //MainActivity().requestPermissionAndOpenGallery
             requestStoragePermission()
         }
 
@@ -105,32 +96,6 @@ class  SelectImageActivity : AppCompatActivity() {
         binding.button5.setOnClickListener{
             val i = Intent(this@SelectImageActivity, SavedImageActivity::class.java)
             startActivity(i)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun getReversedImage(url: String) {
-        val url = URL(url)
-
-        thread {
-            with(url.openConnection() as HttpURLConnection) {
-                requestMethod = "GET"
-
-                inputStream.bufferedReader().lines().forEach {
-                    //Log.d(Globals.TAG, it)
-
-                    val json: JSONArray = JSONArray(it)
-
-                    for (index in 0 until json.length()) {
-                        val thumbnailLink: String =
-                            (json.get(index) as JSONObject).get("thumbnail_link").toString()
-                        val imageLink: String =
-                            (json.get(index) as JSONObject).get("image_link").toString()
-
-                        Log.i(Globals.TAG, "Image Link: " + imageLink + "\n")
-                    }
-                }
-            }
         }
     }
 
