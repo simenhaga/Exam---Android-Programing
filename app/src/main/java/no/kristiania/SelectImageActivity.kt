@@ -137,7 +137,7 @@ class  SelectImageActivity : AppCompatActivity() {
 
         AndroidNetworking.initialize(this)
 
-        AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=")
+        AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$url")
             .setPriority(Priority.HIGH)
             .build()
             .getAsString(object : StringRequestListener{
