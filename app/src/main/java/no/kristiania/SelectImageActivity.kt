@@ -86,9 +86,7 @@ class  SelectImageActivity : AppCompatActivity() {
         }
 
         binding.fragmentButton2.setOnClickListener{
-            //replaceFragment(SelectImageFragment2())
-            val i = Intent(this@SelectImageActivity, ReverseImageSearchActivity::class.java)
-            startActivity(i)
+            replaceFragment(SelectImageFragment2())
         }
 
         binding.button3.setOnClickListener{
@@ -144,14 +142,19 @@ class  SelectImageActivity : AppCompatActivity() {
             .build()
             .getAsString(object : StringRequestListener{
                 override fun onResponse(response: String?) {
-                    val result = JSONObject(response)
-                    val image = result.getJSONArray("image_link")
+                    val result: JSONArray = JSONArray(response)
 
-                    for (i in 0 until image.length()){
+                    for (i in 0 until result.length()){
+                        val image: String =
+                            (result.get(i) as JSONObject).get("image_link").toString()
+
                         val list = image.get(i)
                         imageList.add(
                             ImageApi(list.toString())
                         )
+
+                        Log.i(Globals.TAG, "Image Link: " + image + "\n")
+
                     }
 
                     imageRV.adapter = ImageAdapter(this@SelectImageActivity, imageList)
