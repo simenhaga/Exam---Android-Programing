@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import com.androidnetworking.AndroidNetworking
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         title = "ReverseImageSearchApp"
+        AndroidNetworking.initialize(this)
+
 
         val buttonThree: Button = findViewById(R.id.button3)
         val buttonFour: Button = findViewById(R.id.button4)

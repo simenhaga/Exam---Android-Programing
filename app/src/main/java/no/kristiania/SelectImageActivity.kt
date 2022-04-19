@@ -86,6 +86,9 @@ class  SelectImageActivity : AppCompatActivity() {
         }
 
         binding.fragmentButton2.setOnClickListener{
+            selectedImage?.let {
+                apiController.uploadFileToServer(it)
+            }
             replaceFragment(SelectImageFragment2())
         }
 
@@ -131,62 +134,6 @@ class  SelectImageActivity : AppCompatActivity() {
         }
     }
 
-    private fun RVReversedImageSearch(url: String){
-        val url = URL(url)
-        imageList.clear()
-
-        AndroidNetworking.initialize(this)
-
-        AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$url")
-            .setPriority(Priority.HIGH)
-            .build()
-            .getAsString(object : StringRequestListener{
-                override fun onResponse(response: String?) {
-                    val result: JSONArray = JSONArray(response)
-
-                    for (i in 0 until result.length()){
-                        val image: String =
-                            (result.get(i) as JSONObject).get("image_link").toString()
-
-                        imageList.add(
-                            ImageApi(image)
-                        )
-                        Log.i(Globals.TAG, "Image Link: " + image + "\n")
-                    }
-                    imageRV.adapter = ImageAdapter(this@SelectImageActivity, imageList)
-                }
-                override fun onError(anError: ANError?) {
-                    print(anError.toString())
-                }
-
-            })
-    }
-
-
-    private fun uploadFileToServer(file: File) {
-        AndroidNetworking.upload("http://api-edu.gtl.ai/api/v1/imagesearch/upload")
-            .addMultipartFile("image", file)
-            //.addMultipartParameter("key", "value")
-            .addHeaders("Content-Type", "image/png")
-            .setTag("uploadTest")
-            .setPriority(Priority.HIGH)
-            .build()
-            .setUploadProgressListener { bytesUploaded, totalBytes ->
-                // do anything with progress
-            }
-            .getAsString(object : StringRequestListener {
-                @RequiresApi(Build.VERSION_CODES.N)
-                override fun onResponse(response: String) {
-                    Log.d(Globals.TAG, "Response: $response")
-                    //getReversedImage("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$response")
-                    RVReversedImageSearch(response)
-                }
-
-                override fun onError(anError: ANError?) {
-                    print(anError.toString())
-                }
-            })
-    }
 
     private fun openGalleryForImage() {
         val intent = Intent()
@@ -197,6 +144,8 @@ class  SelectImageActivity : AppCompatActivity() {
         openGalleryLauncher.launch(Intent.createChooser(intent, "Select Picture"))
     }
 
+    private var selectedImage: File? = null
+
     private val openGalleryLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
@@ -205,15 +154,10 @@ class  SelectImageActivity : AppCompatActivity() {
                 imageUri?.let {
                     launchImageCrop(imageUri)
                     setImage(imageUri)
-                    URIPathHelper.getPath(this, it)?.let { path ->
-                        val file = File(path)
-                        //postFileToServer(file)
-                        uploadFileToServer(file)
-                        Log.d(Globals.TAG, "file: $file")
                     }
                 }
             }
-        }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -234,6 +178,13 @@ class  SelectImageActivity : AppCompatActivity() {
             CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == Activity.RESULT_OK) {
+                    val imageUri: Uri? = result.uri
+                    val bitmap = BitmapUtils.getBitmap(
+                        this, null, imageUri.toString(), ::UriToBitmap
+                    )
+                    val file = BitmapUtils.bitmapToFile(bitmap, "cropped.png", this)
+                    selectedImage = file
+                    Log.d(Globals.TAG, "file: $selectedImage")
                     setImage(result.uri)
                 }
                 else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -246,7 +197,6 @@ class  SelectImageActivity : AppCompatActivity() {
     private fun launchImageCrop(imageUri: Uri){
         CropImage.activity(imageUri)
             .setGuidelines(CropImageView.Guidelines.ON)
-            //.setAspectRatio(1920, 1080)
             .setCropShape(CropImageView.CropShape.RECTANGLE) // default is rectangle
             .start(this)
     }
