@@ -60,7 +60,6 @@ class  SelectImageActivity : AppCompatActivity() {
             selectedImage?.let {
                 apiController.uploadFileToServer(it) { result -> Globals.uploadUrl = result }
             }
-            replaceFragment(SelectImageFragment2())
         }
 
         binding.button3.setOnClickListener{
