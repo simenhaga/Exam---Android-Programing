@@ -52,19 +52,23 @@ object apiController {
             .setPriority(Priority.HIGH)
             .build()
             .getAsString(object : StringRequestListener{
-                override fun onResponse(response: String?) {
+                override fun onResponse(response: String) {
                     val result: JSONArray = JSONArray(response)
 
-                    for (i in 0 until result.length()){
-                        val image: String =
-                            (result.get(i) as JSONObject).get("image_link").toString()
+                    if (response.length != 0){
+                        for (i in 0 until result.length()){
+                            val image: String =
+                                (result.get(i) as JSONObject).get("image_link").toString()
 
-                        imageList.add(
-                            ImageApi(image)
-                        )
-                        Log.i(Globals.TAG, "Image Link: " + image + "\n")
+                            imageList.add(
+                                ImageApi(image)
+                            )
+                            Log.i(Globals.TAG, "Image Link: " + image + "\n")
+                        }
+                        callback(imageList)
+                    } else {
+                        Log.d("apiController", "Ingen treff på søk...")
                     }
-                    callback(imageList)
                 }
                 override fun onError(anError: ANError?) {
                     print(anError.toString())
@@ -112,19 +116,23 @@ object apiController {
             .setPriority(Priority.HIGH)
             .build()
             .getAsString(object : StringRequestListener{
-                override fun onResponse(response: String?) {
+                override fun onResponse(response: String) {
                     val result: JSONArray = JSONArray(response)
 
-                    for (i in 0 until result.length()){
-                        val image: String =
-                            (result.get(i) as JSONObject).get("image_link").toString()
+                    if (response.length != 0){
+                        for (i in 0 until result.length()){
+                            val image: String =
+                                (result.get(i) as JSONObject).get("image_link").toString()
 
-                        imageList.add(
-                            ImageApi(image)
-                        )
-                        Log.i(Globals.TAG, "Image Link: " + image + "\n")
+                            imageList.add(
+                                ImageApi(image)
+                            )
+                            Log.i(Globals.TAG, "Image Link: " + image + "\n")
+                        }
+                        callback(imageList)
+                    } else {
+                        Log.d("apiController", "Ingen treff på søk...")
                     }
-                    callback(imageList)
                 }
                 override fun onError(anError: ANError?) {
                     print(anError.toString())
