@@ -3,7 +3,6 @@ package no.kristiania
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +27,23 @@ class ReverseImageSearchActivity : AppCompatActivity() {
 
         binding.fragmentButton4.setOnClickListener{
             Globals.uploadUrl?.let {
-                apiController.reversedImageSearch(it) { imageList ->
+                apiController.reversedImageSearchBing(it) { imageList ->
+                    imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
+                }
+            }
+        }
+
+        binding.fragmentButton6.setOnClickListener{
+            Globals.uploadUrl?.let {
+                apiController.reversedImageSearchGoogle(it) { imageList ->
+                    imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
+                }
+            }
+        }
+
+        binding.fragmentButton5.setOnClickListener{
+            Globals.uploadUrl?.let {
+                apiController.reversedImageSearchTinyeye(it) { imageList ->
                     imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
                 }
             }

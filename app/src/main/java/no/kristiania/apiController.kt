@@ -43,11 +43,72 @@ object apiController {
             })
     }
 
-    fun reversedImageSearch(url: String, callback: (ArrayList<ImageApi>) -> Unit){
+    fun reversedImageSearchBing(url: String, callback: (ArrayList<ImageApi>) -> Unit){
         val imageList = ArrayList<ImageApi>()
         val url = URL(url)
+        Log.d("apiController: ", "Doing reversed image search on Bing...")
 
         AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$url")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsString(object : StringRequestListener{
+                override fun onResponse(response: String?) {
+                    val result: JSONArray = JSONArray(response)
+
+                    for (i in 0 until result.length()){
+                        val image: String =
+                            (result.get(i) as JSONObject).get("image_link").toString()
+
+                        imageList.add(
+                            ImageApi(image)
+                        )
+                        Log.i(Globals.TAG, "Image Link: " + image + "\n")
+                    }
+                    callback(imageList)
+                }
+                override fun onError(anError: ANError?) {
+                    print(anError.toString())
+                }
+
+            })
+    }
+
+    fun reversedImageSearchGoogle(url: String, callback: (ArrayList<ImageApi>) -> Unit){
+        val imageList = ArrayList<ImageApi>()
+        val url = URL(url)
+        Log.d("apiController: ", "Doing reversed image search on Google...")
+
+        AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/google?url=$url")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsString(object : StringRequestListener{
+                override fun onResponse(response: String?) {
+                    val result: JSONArray = JSONArray(response)
+
+                    for (i in 0 until result.length()){
+                        val image: String =
+                            (result.get(i) as JSONObject).get("image_link").toString()
+
+                        imageList.add(
+                            ImageApi(image)
+                        )
+                        Log.i(Globals.TAG, "Image Link: " + image + "\n")
+                    }
+                    callback(imageList)
+                }
+                override fun onError(anError: ANError?) {
+                    print(anError.toString())
+                }
+
+            })
+    }
+
+    fun reversedImageSearchTinyeye(url: String, callback: (ArrayList<ImageApi>) -> Unit){
+        val imageList = ArrayList<ImageApi>()
+        val url = URL(url)
+        Log.d("apiController: ", "Doing reversed image search on Tinyeye...")
+
+        AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/tinyeye?url=$url")
             .setPriority(Priority.HIGH)
             .build()
             .getAsString(object : StringRequestListener{
