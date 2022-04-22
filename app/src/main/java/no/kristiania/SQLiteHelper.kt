@@ -31,9 +31,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         val createResultsTable =(
                 "CREATE TABLE $STORED_RESULTS " +
                     "($RESULT_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    " $IMAGE_LINK TEXT," +
-                    " $STORED_ID INTEGER," +
-                    " FOREIGN KEY($STORED_ID) REFERENCES $STORED_IMAGES($STORED_ID))")
+                    " $IMAGE_LINK TEXT,")
 
         db?.execSQL(createStoredTable)
         db?.execSQL(createResultsTable)
@@ -50,6 +48,17 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
         contentValue.put(URI, image.uri)
         val id = db.insert(STORED_IMAGES, null, contentValue)
+        db.close()
+
+        return id
+    }
+
+    fun saveImagesFromResult (image: StoredResultsModel): Long? {
+        val db = this.writableDatabase
+        val contentValue = ContentValues()
+
+        contentValue.put(IMAGE_LINK, image.imageLink)
+        val id = db.insert(STORED_RESULTS, null, contentValue)
         db.close()
 
         return id

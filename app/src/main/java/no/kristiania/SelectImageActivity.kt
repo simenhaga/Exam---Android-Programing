@@ -118,7 +118,9 @@ class  SelectImageActivity : AppCompatActivity() {
                     val bitmap = BitmapUtils.getBitmap(
                         this, null, imageUri.toString(), ::UriToBitmap
                     )
-                    val file = BitmapUtils.bitmapToFile(bitmap, "cropped.png", this)
+                    var filename = imageUri?.lastPathSegment
+                    filename = imageUri?.lastPathSegment?.substringBefore(".")
+                    val file = BitmapUtils.bitmapToFile(bitmap, "${filename}.png", this)
                     selectedImage = file
                     Log.d(Globals.TAG, "file: $selectedImage")
                     setImage(result.uri)
