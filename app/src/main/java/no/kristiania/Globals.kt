@@ -7,9 +7,6 @@ import android.graphics.drawable.VectorDrawable
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.core.content.ContextCompat
-import java.io.Serializable
-import java.net.URL
-import kotlin.concurrent.thread
 import kotlin.random.Random
 
 object Globals {

@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import no.kristiania.databinding.ActivitySavedImageBinding
 import no.kristiania.databinding.SavedImageFragment1Binding
 
 class SavedImageFragment : Fragment(R.layout.saved_image_fragment1) {

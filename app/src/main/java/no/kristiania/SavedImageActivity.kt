@@ -3,8 +3,6 @@ package no.kristiania
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import kotlinx.android.synthetic.main.saved_image_fragment1.*
 import no.kristiania.databinding.ActivitySavedImageBinding
 
