@@ -53,6 +53,18 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         return id
     }
 
+    fun deleteStoredImage(savedImage: StoredImageModel) {
+        val db = this.writableDatabase
+        db.delete(STORED_IMAGES, "$STORED_ID=?", arrayOf("${savedImage.id}"))
+        db.close()
+    }
+
+    fun deleteResultImage(savedImage: StoredResultsModel) {
+        val db = this.writableDatabase
+        db.delete(STORED_RESULTS, "$RESULT_ID=?", arrayOf("${savedImage.id}"))
+        db.close()
+    }
+
     fun saveImagesFromResult (image: StoredResultsModel): Long? {
         val db = this.writableDatabase
         val contentValue = ContentValues()

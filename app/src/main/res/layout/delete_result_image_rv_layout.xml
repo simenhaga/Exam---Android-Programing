@@ -12,11 +12,11 @@
         />
 
     <Button
-        android:id="@+id/saveImageBtn"
-        android:layout_width="80dp"
+        android:id="@+id/deleteResultImageBtn"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
+        android:text="Delete"
         android:layout_gravity="center_horizontal"
-        android:text="Save"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         />

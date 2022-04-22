@@ -8,27 +8,45 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import no.kristiania.databinding.SavedImageFragment1Binding
+import no.kristiania.databinding.SavedImageFragmentBinding
 
-class SavedImageFragment : Fragment(R.layout.saved_image_fragment1) {
-    lateinit var binding: SavedImageFragment1Binding
+class SavedImageFragment : Fragment(R.layout.saved_image_fragment) {
+    lateinit var binding: SavedImageFragmentBinding
     private lateinit var savedImageRV: RecyclerView
+    private lateinit var savedResultImageRV: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = SavedImageFragment1Binding.inflate(inflater, container, false)
-        val database = activity?.let { Globals.getDatabase(it.baseContext) }
+    ): View {
+        binding = SavedImageFragmentBinding.inflate(inflater, container, false)
 
         // Init views
         savedImageRV = binding.savedImageRV
+        savedResultImageRV = binding.resultImageRV
+
         savedImageRV.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
-        val savedImages = database?.getStoredImages()
-        val converted = savedImages?.map { ImageApi(imageUri = it.uri) }
-        savedImageRV.adapter = converted?.let { savedImageAdapter(context, it) }
+        savedResultImageRV.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+
+        updateResultRV()
+        updateSavedRV()
 
         return binding.root
     }
+
+    fun updateResultRV(){
+        val database = activity?.let { Globals.getDatabase(it.baseContext) }
+
+        val savedResultImages = database?.getResultImages()
+        savedResultImageRV.adapter = savedResultImages?.let { SavedResultsAdapter(context, this, it ) }
+    }
+
+    fun updateSavedRV(){
+        val database = activity?.let { Globals.getDatabase(it.baseContext) }
+
+        val savedImages = database?.getStoredImages()
+        savedImageRV.adapter = savedImages?.let { SavedImageAdapter(context, this, it) }
+    }
+
 }

@@ -3,7 +3,7 @@ package no.kristiania
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.saved_image_fragment1.*
+import kotlinx.android.synthetic.main.saved_image_fragment.*
 import no.kristiania.databinding.ActivitySavedImageBinding
 
 class SavedImageActivity : AppCompatActivity() {

@@ -3,18 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1640625" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3921875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_reverse_image_search.xml" value="0.2246511645245151" />
         <entry key="app/src/main/res/layout/activity_reverse_image_search_avtivity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_saved_image.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/activity_select_image.xml" value="0.2115036231884058" />
+        <entry key="app/src/main/res/layout/delete_result_image_rv_layout.xml" value="0.190625" />
+        <entry key="app/src/main/res/layout/delete_stored_image_rv.xml" value="0.11875" />
         <entry key="app/src/main/res/layout/fragment_select_image.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_select_image1.xml" value="0.2115036231884058" />
         <entry key="app/src/main/res/layout/image_rv_layout.xml" value="0.19010416666666666" />
         <entry key="app/src/main/res/layout/reverse_image_search_fragment1.xml" value="0.20923913043478262" />
         <entry key="app/src/main/res/layout/saved_image_fragment1.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/savedimage_rv_layout.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/savedimage_rv_layout.xml" value="0.190625" />
         <entry key="app/src/main/res/layout/selectimagefragment1.xml" value="0.1" />
         <entry key="app/src/main/res/layout/selectimagefragment2.xml" value="0.20052083333333334" />
       </map>
