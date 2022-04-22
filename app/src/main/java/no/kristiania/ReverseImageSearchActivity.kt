@@ -22,7 +22,7 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         title = "ReverseImageSearchApp"
 
         // Init views
-        imageRV = findViewById(R.id.apiRecyclerView)
+        imageRV = binding.apiRecyclerView
 
         imageRV.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
 

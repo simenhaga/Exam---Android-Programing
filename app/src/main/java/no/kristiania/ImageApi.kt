@@ -1,4 +1,3 @@
 package no.kristiania
 
-data class ImageApi(val imageLink: String) {
-}
+data class ImageApi(val imageUrl: String? = null, val imageUri: String? = null)

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
+import kotlinx.android.synthetic.main.saved_image_fragment1.*
 import no.kristiania.databinding.ActivitySavedImageBinding
 
 class SavedImageActivity : AppCompatActivity() {
@@ -15,6 +16,11 @@ class SavedImageActivity : AppCompatActivity() {
         binding = ActivitySavedImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainer, SavedImageFragment())
+        fragmentTransaction.commit()
 
         binding.button5.setOnClickListener{
             val i = Intent(this@SavedImageActivity, MainActivity::class.java)
