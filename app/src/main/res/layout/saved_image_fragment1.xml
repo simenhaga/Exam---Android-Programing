@@ -2,21 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/savedimagefragment1"
+    android:background="@color/white"
     >
 
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:id="@+id/savedImageRV"
 
+    />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Fragment 1"
-        android:textSize="30dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:textColor="@color/white"
-
-        />
-
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="360dp"
+    android:id="@+id/resultImageRV"
+    android:layout_alignParentBottom="true"
+    />
 </RelativeLayout>

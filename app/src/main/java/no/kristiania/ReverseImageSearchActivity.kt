@@ -65,7 +65,6 @@ class ReverseImageSearchActivity : AppCompatActivity() {
             val i = Intent(this@ReverseImageSearchActivity, SavedImageActivity::class.java)
             startActivity(i)
         }
-
     }
 
     private fun replaceFragment(fragment: Fragment) {

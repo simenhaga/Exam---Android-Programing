@@ -16,10 +16,6 @@ class SavedImageActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
 
-        binding.fragmentButton3.setOnClickListener{
-            replaceFragment(SavedImageFragment())
-        }
-
         binding.button5.setOnClickListener{
             val i = Intent(this@SavedImageActivity, MainActivity::class.java)
             startActivity(i)
