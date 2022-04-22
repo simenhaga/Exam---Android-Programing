@@ -91,14 +91,4 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         }
         return result
     }
-
-    fun saveSearchResults (result: StoredResultsModel) {
-        val db = this.writableDatabase
-        val contentValue = ContentValues()
-
-        contentValue.put(STORED_RESULTS, result.imageLink)
-        contentValue.put(STORED_RESULTS, result.storedImageID)
-        db.close()
-    }
-
 }
