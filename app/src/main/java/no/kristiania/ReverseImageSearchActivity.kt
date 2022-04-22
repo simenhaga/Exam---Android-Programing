@@ -3,6 +3,7 @@ package no.kristiania
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         imageRV.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
 
         binding.fragmentButton4.setOnClickListener{
+            Toast.makeText(this@ReverseImageSearchActivity, "Doing reversed image search on Bing...", Toast.LENGTH_LONG).show()
             Globals.uploadUrl?.let {
                 apiController.reversedImageSearchBing(it) { imageList ->
                     imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)

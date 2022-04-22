@@ -1,7 +1,9 @@
 package no.kristiania
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.androidnetworking.AndroidNetworking
@@ -15,7 +17,6 @@ import java.net.URL
 
 object apiController {
     private lateinit var imageRV: RecyclerView
-
 
 
     fun uploadFileToServer(file: File, callback: (String) -> Unit) {
@@ -46,7 +47,7 @@ object apiController {
     fun reversedImageSearchBing(url: String, callback: (ArrayList<ImageApi>) -> Unit){
         val imageList = ArrayList<ImageApi>()
         val url = URL(url)
-        Log.d("apiController: ", "Doing reversed image search on Bing...")
+        //Log.d("apiController: ", "Doing reversed image search on Bing...")
 
         AndroidNetworking.get("http://api-edu.gtl.ai/api/v1/imagesearch/bing?url=$url")
             .setPriority(Priority.HIGH)
@@ -68,6 +69,7 @@ object apiController {
                         callback(imageList)
                     } else {
                         Log.d("apiController", "Ingen treff på søk...")
+
                     }
                 }
                 override fun onError(anError: ANError?) {

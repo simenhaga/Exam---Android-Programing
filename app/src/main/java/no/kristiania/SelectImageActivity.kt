@@ -17,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.androidnetworking.AndroidNetworking
 import com.bumptech.glide.Glide
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.fasterxml.jackson.databind.ser.Serializers
 import com.jacksonandroidnetworking.JacksonParserFactory
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -45,6 +47,8 @@ class  SelectImageActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
 
+        val database = Globals.getDatabase(baseContext)
+
         val okHttpClient = OkHttpClient().newBuilder()
             .addNetworkInterceptor(StethoInterceptor())
             .build()
@@ -58,6 +62,8 @@ class  SelectImageActivity : AppCompatActivity() {
 
         binding.fragmentButton2.setOnClickListener{
             selectedImage?.let {
+                database.saveImages(StoredImageModel(uri = selectedImage?.toUri().toString()))
+                Log.d("Database", "${database.getImages()}")
                 apiController.uploadFileToServer(it) { result -> Globals.uploadUrl = result }
             }
         }
@@ -83,14 +89,11 @@ class  SelectImageActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
                 val imageUri: Uri? = result.data?.data
-                imageView.setImageURI(imageUri)
                 imageUri?.let {
                     launchImageCrop(imageUri)
-                    setImage(imageUri)
                     }
                 }
             }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

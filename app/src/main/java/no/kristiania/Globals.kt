@@ -15,7 +15,19 @@ import kotlin.random.Random
 object Globals {
     val TAG = "Exam"
     var uploadUrl: String? = null
+
+    fun getDatabase(context: Context): SQLiteHelper {
+        if(!init){
+            init = true
+            database = SQLiteHelper(context)
+        }
+        return database
+    }
 }
+
+private var init : Boolean = false
+private lateinit var database: SQLiteHelper
+
 
 fun Random.generateRandomString(intRange: IntRange): String {
     var randomString: String = ""
