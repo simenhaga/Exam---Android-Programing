@@ -65,7 +65,35 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
     }
 
     @SuppressLint("Range")
-    fun getImages(): List<StoredImageModel> {
+    fun getResultImages(): List<StoredResultsModel> {
+        val db = this.readableDatabase
+        val result = arrayListOf<StoredResultsModel>()
+        val statement = "SELECT * FROM $STORED_RESULTS"
+
+        val cursor: Cursor?
+
+        try {
+            cursor = db.rawQuery(statement, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL(statement)
+            return listOf()
+        }
+        if (cursor.moveToFirst()){
+            do {
+                result.add(
+                    StoredResultsModel(
+                        cursor.getLong(cursor.getColumnIndex(RESULT_ID)),
+                        cursor.getString(cursor.getColumnIndex(IMAGE_LINK))
+                    )
+                )
+            }while (cursor.moveToNext())
+        }
+        return result
+    }
+
+    @SuppressLint("Range")
+    fun getStoredImages(): List<StoredImageModel> {
         val db = this.readableDatabase
         val result = arrayListOf<StoredImageModel>()
         val statement = "SELECT * FROM $STORED_IMAGES"

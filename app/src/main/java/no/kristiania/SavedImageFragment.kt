@@ -25,7 +25,7 @@ class SavedImageFragment : Fragment(R.layout.saved_image_fragment1) {
         // Init views
         savedImageRV = binding.savedImageRV
         savedImageRV.layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
-        val savedImages = database?.getImages()
+        val savedImages = database?.getStoredImages()
         val converted = savedImages?.map { ImageApi(imageUri = it.uri) }
         savedImageRV.adapter = converted?.let { savedImageAdapter(context, it) }
 

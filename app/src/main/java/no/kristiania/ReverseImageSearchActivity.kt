@@ -45,8 +45,7 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         saveBtnBinding.saveImageBtn.setOnClickListener{
             imageResult?.let {
                 database.saveImagesFromResult(StoredResultsModel(imageLink = imageResult?.toUri().toString()))
-                Log.d("Database", "${database.getImages()}")
-                apiController.uploadFileToServer(it) { result -> Globals.uploadUrl = result }
+                Log.d("Database", "${database.getResultImages()}")
             }
         }
 

@@ -58,7 +58,7 @@ class  SelectImageActivity : AppCompatActivity() {
         binding.fragmentButton2.setOnClickListener{
             selectedImage?.let {
                 database.saveImages(StoredImageModel(uri = selectedImage?.toUri().toString()))
-                Log.d("Database", "${database.getImages()}")
+                Log.d("Database", "${database.getStoredImages()}")
                 apiController.uploadFileToServer(it) { result -> Globals.uploadUrl = result }
             }
         }
