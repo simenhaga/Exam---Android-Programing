@@ -38,12 +38,4 @@ class SavedImageActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun replaceFragment(fragment : Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
-        fragmentTransaction.commit()
-    }
-
 }

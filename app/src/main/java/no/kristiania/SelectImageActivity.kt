@@ -212,15 +212,4 @@ class  SelectImageActivity : AppCompatActivity() {
             .setNegativeButton("Cancel", null)
             .create().show()
     }
-
-
-
-    private fun replaceFragment(fragment : Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
-        fragmentTransaction.commit()
-    }
-
-
 }
