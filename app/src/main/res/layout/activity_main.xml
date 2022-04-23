@@ -9,17 +9,9 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="700dp"
-        android:textColor="@android:color/holo_purple"
-        android:text="MainActivity"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
             <Button
                 android:id="@+id/button3"
@@ -28,7 +20,10 @@
                 android:text="Select image"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20px"
+                android:backgroundTint="@color/teal_700"
+                android:textAllCaps="false"
                 />
+
 
             <Button
                 android:id="@+id/button4"
@@ -36,6 +31,8 @@
                 android:layout_height="70dp"
                 android:text="Reverse image search"
                 android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/teal_700"
+                android:textAllCaps="false"
                 />
 
             <Button
@@ -45,6 +42,8 @@
                 android:text="Saved images"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20px"
+                android:backgroundTint="@color/teal_700"
+                android:textAllCaps="false"
                 />
 
 

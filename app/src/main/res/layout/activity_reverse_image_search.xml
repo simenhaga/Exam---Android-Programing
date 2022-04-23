@@ -19,6 +19,9 @@
         android:text="Select image"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20px"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
         />
 
     <Button
@@ -27,6 +30,9 @@
         android:layout_height="70dp"
         android:text="Home"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
         />
 
     <Button
@@ -36,6 +42,9 @@
         android:text="Saved Images"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20px"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
         />
 
     <Button
@@ -45,7 +54,11 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20px"
         android:layout_marginTop="70dp"
-        android:text="Bing" />
+        android:text="Bing"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
+        />
 
     <Button
         android:id="@+id/fragmentButton5"
@@ -54,7 +67,11 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="20px"
         android:layout_marginTop="70dp"
-        android:text="Tinyeye" />
+        android:text="Tinyeye"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
+        />
 
     <Button
         android:id="@+id/fragmentButton6"
@@ -62,7 +79,11 @@
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        android:text="Google" />
+        android:text="Google"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/apiRecyclerView"

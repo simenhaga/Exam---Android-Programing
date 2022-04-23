@@ -25,7 +25,6 @@ class SavedImageAdapter(val context: Context?, private val parentFragment: Saved
             holder.itemView.apiImage.setImageURI(Uri.parse(it))
         }
         holder.view.findViewById<Button>(R.id.deleteImageBtn).setOnClickListener {
-            Log.d("TEST", "I SHOIUDLF DDLJSDF")
             imageList[position].uri.let{
                 context?.let { context ->
                     Globals.getDatabase(context).deleteStoredImage(imageList[position])

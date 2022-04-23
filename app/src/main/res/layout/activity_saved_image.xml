@@ -29,6 +29,9 @@
         android:text="Select image"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20px"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
         />
 
     <Button
@@ -37,6 +40,9 @@
         android:layout_height="70dp"
         android:text="Reverse image search"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
         />
 
     <Button
@@ -46,6 +52,9 @@
         android:text="Home"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20px"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false"
+
         />
 
 
