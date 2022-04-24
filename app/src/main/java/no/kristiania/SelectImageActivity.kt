@@ -65,16 +65,19 @@ class  SelectImageActivity : AppCompatActivity() {
         }
 
         binding.button3.setOnClickListener{
+            Toast.makeText(this, R.string.openingMain, Toast.LENGTH_SHORT).show()
             val i = Intent(this@SelectImageActivity, MainActivity::class.java)
             startActivity(i)
         }
 
         binding.button4.setOnClickListener{
+            Toast.makeText(this, R.string.openingRISAct, Toast.LENGTH_SHORT).show()
             val i = Intent(this@SelectImageActivity, ReverseImageSearchActivity::class.java)
             startActivity(i)
         }
 
         binding.button5.setOnClickListener{
+            Toast.makeText(this, R.string.openingSavedAct, Toast.LENGTH_SHORT).show()
             val i = Intent(this@SelectImageActivity, SavedImageActivity::class.java)
             startActivity(i)
         }

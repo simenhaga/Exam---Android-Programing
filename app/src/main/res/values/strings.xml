@@ -7,4 +7,8 @@
     <string name="searchGoogle">Doing reversed image search on Google...</string>
     <string name="searchTinEye">Doing reversed image search on Tineye...</string>
     <string name="saveBtn">Saved image to database..</string>
+    <string name="openingSelectAct">Opening Select Image..</string>
+    <string name="openingRISAct">Opening Reverse Image Search..</string>
+    <string name="openingSavedAct">Opening Saved Images..</string>
+    <string name="openingMain">Going back to Main..</string>
 </resources>

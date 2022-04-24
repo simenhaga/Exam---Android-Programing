@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="700dp"
-        android:textColor="@android:color/holo_purple"
         android:text="SelectImageActivity"
+        android:textColor="@android:color/holo_purple"
         android:textSize="24sp"
         android:textStyle="bold" />
 

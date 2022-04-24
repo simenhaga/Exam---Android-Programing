@@ -26,16 +26,19 @@ class MainActivity : AppCompatActivity() {
         val buttonFive: Button = findViewById(R.id.button5)
 
         buttonThree.setOnClickListener {
+            Toast.makeText(this, R.string.openingSelectAct, Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainActivity, SelectImageActivity::class.java)
             startActivity(intent)
         }
 
         buttonFour.setOnClickListener {
+            Toast.makeText(this, R.string.openingRISAct, Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainActivity, ReverseImageSearchActivity::class.java)
             startActivity(intent)
         }
 
         buttonFive.setOnClickListener {
+            Toast.makeText(this, R.string.openingSavedAct, Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainActivity, SavedImageActivity::class.java)
             startActivity(intent)
         }
