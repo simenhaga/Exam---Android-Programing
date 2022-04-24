@@ -15,7 +15,6 @@ import java.io.File
 
 class ReverseImageSearchActivity : AppCompatActivity() {
     lateinit var binding: ActivityReverseImageSearchBinding
-    lateinit var saveBtnBinding: ImageRvLayoutBinding
     private var imageResult: File? = null
 
     private lateinit var imageRV: RecyclerView
@@ -23,7 +22,6 @@ class ReverseImageSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReverseImageSearchBinding.inflate(layoutInflater)
-        saveBtnBinding = ImageRvLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = "ReverseImageSearchApp"
         val database = Globals.getDatabase(baseContext)
@@ -39,14 +37,6 @@ class ReverseImageSearchActivity : AppCompatActivity() {
                 apiController.reversedImageSearchBing(it) { imageList ->
                     imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
                 }
-            }
-        }
-
-        saveBtnBinding.saveImageBtn.setOnClickListener{
-            Toast.makeText(this, R.string.saveBtn, Toast.LENGTH_SHORT).show()
-            imageResult?.let {
-                database.saveImagesFromResult(StoredResultsModel(imageLink = imageResult?.toUri().toString()))
-                Log.d("Database", "${database.getResultImages()}")
             }
         }
 
