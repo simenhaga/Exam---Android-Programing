@@ -31,7 +31,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         val createResultsTable =(
                 "CREATE TABLE $STORED_RESULTS " +
                     "($RESULT_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    " $IMAGE_LINK TEXT,")
+                    " $IMAGE_LINK TEXT)")
 
         db?.execSQL(createStoredTable)
         db?.execSQL(createResultsTable)
