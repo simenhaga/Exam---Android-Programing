@@ -60,6 +60,7 @@ class  SelectImageActivity : AppCompatActivity() {
                 database.saveImages(StoredImageModel(uri = selectedImage?.toUri().toString()))
                 Log.d("Database", "${database.getStoredImages()}")
                 apiController.uploadFileToServer(it) { result -> Globals.uploadUrl = result }
+                Toast.makeText(this, R.string.upload, Toast.LENGTH_SHORT).show()
             }
         }
 

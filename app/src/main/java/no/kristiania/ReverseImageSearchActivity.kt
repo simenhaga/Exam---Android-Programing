@@ -34,7 +34,7 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         imageRV.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
 
         binding.fragmentButton4.setOnClickListener{
-            Toast.makeText(this@ReverseImageSearchActivity, "Doing reversed image search on Bing...", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.searchBing, Toast.LENGTH_LONG).show()
             Globals.uploadUrl?.let {
                 apiController.reversedImageSearchBing(it) { imageList ->
                     imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
@@ -43,6 +43,7 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         }
 
         saveBtnBinding.saveImageBtn.setOnClickListener{
+            Toast.makeText(this, R.string.saveBtn, Toast.LENGTH_SHORT).show()
             imageResult?.let {
                 database.saveImagesFromResult(StoredResultsModel(imageLink = imageResult?.toUri().toString()))
                 Log.d("Database", "${database.getResultImages()}")
@@ -50,6 +51,7 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         }
 
         binding.fragmentButton6.setOnClickListener{
+            Toast.makeText(this, R.string.searchGoogle, Toast.LENGTH_LONG).show()
             Globals.uploadUrl?.let {
                 apiController.reversedImageSearchGoogle(it) { imageList ->
                     imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
@@ -58,6 +60,7 @@ class ReverseImageSearchActivity : AppCompatActivity() {
         }
 
         binding.fragmentButton5.setOnClickListener{
+            Toast.makeText(this, R.string.searchTinEye, Toast.LENGTH_LONG).show()
             Globals.uploadUrl?.let {
                 apiController.reversedImageSearchTinyeye(it) { imageList ->
                     imageRV.adapter = ImageAdapter(this@ReverseImageSearchActivity, imageList)
