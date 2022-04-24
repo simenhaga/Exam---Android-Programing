@@ -3,10 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="upload">Uploading cropped image to the server...</string>
+    <string name="goToRIS">Go to Reverse Image Search to continue</string>
     <string name="searchBing">Doing reversed image search on Bing...</string>
     <string name="searchGoogle">Doing reversed image search on Google...</string>
     <string name="searchTinEye">Doing reversed image search on Tineye...</string>
     <string name="saveBtn">Saved image to database..</string>
+    <string name="deleteBtn">Deleted image from database..</string>
     <string name="openingSelectAct">Opening Select Image..</string>
     <string name="openingRISAct">Opening Reverse Image Search..</string>
     <string name="openingSavedAct">Opening Saved Images..</string>

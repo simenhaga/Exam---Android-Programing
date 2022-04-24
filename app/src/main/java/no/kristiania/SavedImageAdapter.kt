@@ -28,6 +28,7 @@ class SavedImageAdapter(val context: Context?, private val parentFragment: Saved
         holder.view.findViewById<Button>(R.id.deleteImageBtn).setOnClickListener {
             imageList[position].uri.let{
                 context?.let { context ->
+                    Toast.makeText(holder.view.context, R.string.deleteBtn, Toast.LENGTH_LONG).show()
                     Globals.getDatabase(context).deleteStoredImage(imageList[position])
                     parentFragment.updateSavedRV()
                 }
